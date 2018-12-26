@@ -1,0 +1,24 @@
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+    <springProperty name="appName" source="spring.application.name" defaultValue="spring" />
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+
+        <springProfile name="json">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <customFields>{"appName":"${appName}"}</customFields>
+            </encoder>
+        </springProfile>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <logger name="org.springframework" level="INFO"/>
+</configuration>

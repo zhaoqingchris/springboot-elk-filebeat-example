@@ -1,0 +1,33 @@
+filebeat.inputs:
+  - type: docker
+    combine_partial: true
+    containers:
+      ids:
+        - "*"
+    json.keys_under_root: true
+    json.message_key: log
+    json.overwrite_keys: true
+    json.ignore_decoding_error: true
+    fields_under_root: true
+    fields:
+        tags: ['json']
+    processors:
+      - add_docker_metadata: ~
+      - decode_json_fields:
+          fields: ["message"]
+      - drop_event:
+          when:
+            not:
+              has_fields: ['docker.container.labels.filebeat_enable']
+
+
+output:
+  logstash.hosts: ["host.docker.internal:5044"]
+
+# Write Filebeat own logs only to file to avoid catching them with itself in docker log files
+logging.to_files: true
+logging.to_syslog: false
+
+# X-pack optional module
+xpack.monitoring.enabled: true
+xpack.monitoring.elasticsearch.hosts: host.docker.internal:9200

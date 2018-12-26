@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: json-logging-example
+  output:
+    ansi:
+      enabled: always
+  profiles:
+    active: local
+    include: json
+
+management:
+  endpoint:
+    health:
+      show-details: always
