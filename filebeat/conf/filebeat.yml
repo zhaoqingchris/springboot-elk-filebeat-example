@@ -30,4 +30,4 @@ logging.to_syslog: false
 
 # X-pack optional module
 xpack.monitoring.enabled: true
-xpack.monitoring.elasticsearch.hosts: host.docker.internal:9200
+xpack.monitoring.elasticsearch.hosts: ["host.docker.internal:9200"]

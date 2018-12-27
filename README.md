@@ -17,3 +17,10 @@ and add following dependency
 ```
 
 Filebeat acts like agent to collect log message and push them to logstash. It is lightweight, supports back pressure with recovery mechanism.
+
+
+
+To start the application, run below command at project root level
+```bash
+docker-compose -f docker/docker-compose.yml up --build
+```
